@@ -1,0 +1,13 @@
+.create{
+    background-color:aliceblue !important;
+    border-radius: 20px;
+}
+.signup{
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+    width: 150px;
+    background-color: blue;
+    color: white;
+    height: 40px;
+}
