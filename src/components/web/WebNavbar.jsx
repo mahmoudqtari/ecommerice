@@ -1,8 +1,14 @@
 import React from 'react'
 import '../web/web.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-function webNavbar() {
+function webNavbar({user,setUser}) {
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem('userToken');
+        setUser(null);
+        navigate('/home');
+    }
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container">
@@ -27,6 +33,9 @@ function webNavbar() {
                             <a className="nav-link" href="#">Products</a>
                         </li>
 
+                        {user && <li className="nav-item">
+                            <a className="nav-link" href="#">chart</a>
+                        </li>}
 
                     </ul>
                     <ul className="navbar-nav">
@@ -35,9 +44,18 @@ function webNavbar() {
                                 Dropdown
                             </a>
                             <ul className="dropdown-menu ">
-                                <li><Link className="dropdown-item" to={'/register'}>register</Link></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><Link className="dropdown-item" to={'/login'}>login</Link></li>
+                                {!user? 
+                                <>
+                                    <li><Link className="dropdown-item" to={'/register'}>register</Link></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><Link className="dropdown-item" to={'/login'}>login</Link></li>
+                                </>: 
+                                <>
+                                    <li><Link className="dropdown-item" to={'/register'}>profile</Link></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><Link className="dropdown-item" onClick={logout}>logout</Link></li>
+                                </>}
+                                
                             </ul>
                         </li>
                     </ul>

@@ -11,47 +11,47 @@ import DashbordCategories from '../components/dashboard/Categories'
 import Register from '../components/register/Register';
 import Login from '../components/login/Login';
 
-export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        {
-          path: "register",
-          element: <Register />
-        },
-        {
-          path: "login",
-          element: <Login />
-        },
-        {
-          path: "home",
-          element: <Home />
-        },
-        {
-          path: "categories",
-          element: <Categories />
-        },
-        {
-          path: "*",
-          element: <h2>page not found --web</h2>
-        }
-      ]
-    },
-    {
-      path: "/dashboard",
-      element: <DashbordLayout />,
-      children: [{
+/*export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "register",
+        element: <Register />
+      },
+      {
+        path: "login",
+        element: <Login />
+      },
+      {
         path: "home",
-        element: <DashbordHome />
+        element: <Home />
       },
       {
         path: "categories",
-        element: <DashbordCategories />
+        element: <Categories />
       },
       {
         path: "*",
-        element: <h2>page not found --dashbord</h2>
-      }],
-    }
-  ]);
+        element: <h2>page not found --web</h2>
+      }
+    ]
+  },
+  {
+    path: "/dashboard",
+    element: <DashbordLayout />,
+    children: [{
+      path: "home",
+      element: <DashbordHome />
+    },
+    {
+      path: "categories",
+      element: <DashbordCategories />
+    },
+    {
+      path: "*",
+      element: <h2>page not found --dashbord</h2>
+    }],
+  }
+]);*/

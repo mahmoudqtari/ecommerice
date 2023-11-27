@@ -4,8 +4,10 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { LoginSchema } from '../register/validateSchema.js'
+import { useNavigate } from 'react-router-dom'
 
-function Login() {
+function Login({saveCurrentUser}) {
+    const navigate = useNavigate();
     const initialValues ={
         email: '',
         username: '',
@@ -15,11 +17,13 @@ function Login() {
     
     const onSubmit = async users => {
         const {data} = await axios.post('https://ecommerce-node4.vercel.app/auth/signin',users);
-        console.log(data);
-        /*if(data.message === "success"){
-            formik.resetForm();
-            toast('Account Created Successfuly, plz verify your email to login', {
-                position: "bottom-center",
+        if(data.message === "success"){
+            localStorage.setItem("userToken",data.token);
+            saveCurrentUser();
+            navigate('/home');
+        
+            toast('Account login Successfuly', {
+                position: "top-right",
                 autoClose: false,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -28,7 +32,7 @@ function Login() {
                 progress: undefined,
                 theme: "dark",
                 })
-        }*/
+        }
     }
     const formik = useFormik({
         initialValues,
