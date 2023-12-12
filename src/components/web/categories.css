@@ -1,0 +1,33 @@
+img{
+    width: 100px;
+    height: 100px;
+}
+.swiper {
+    padding: 50px;
+}
+.category{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.swiper-button-prev,
+.swiper-button-next{
+    background-color: blue;
+    color: #000;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50%;
+}
+.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after,
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+    font-size: 15px !important;
+}
+.swiper-pagination-bullet{
+    background-color: rgpa(0,0,0,0.5);
+}
+.swiper-custom-pagination{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    padding-top: 30px;
+}

@@ -14,7 +14,6 @@ function Register() {
         image: null
     }
     const handleFieldChange = (event) => {
-        console.log(event);
         formik.setFieldValue('image', event.target.files[0])
     }
     const onSubmit = async users => {
@@ -24,6 +23,9 @@ function Register() {
         formData.append("password", users.password);
         formData.append("image", users.image);
 
+        for(let data of formData.entries()){
+            console.log(data);
+        }
         const {data} = await axios.post('https://ecommerce-node4.vercel.app/auth/signup',formData);
         if(data.message === "success"){
             formik.resetForm();

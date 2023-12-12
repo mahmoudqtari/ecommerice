@@ -1,49 +1,27 @@
-import React, { useContext } from 'react'
 import Input from '../../shared/Input'
 import { useFormik } from 'formik'
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { LoginSchema } from '../register/validateSchema.js'
-import { Link, useNavigate } from 'react-router-dom'
-import { UserContext } from '../context/User.jsx'
+import { ForgetSchema } from '../register/validateSchema.js'
+import { useNavigate } from 'react-router-dom'
 
-function Login() {
-    let { userToken, setUserToken } = useContext(UserContext);
+function Forget() {
     const initialValues = {
         email: '',
         password: '',
+        code: ''
     }
     const navigate = useNavigate();
-    if (userToken) {
-        navigate(-1);
-    }
-    const onSubmit = async users => {
-        const { data } = await axios.post('https://ecommerce-node4.vercel.app/auth/signin', users);
-        //console.log(data);
-        setUserToken(data.token);
-        if (data.message === "success") {
-            localStorage.setItem("userToken", data.token);
-            navigate('/');
-            toast('Account login Successfuly', {
-                position: "top-right",
-                autoClose: false,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            })
-
-        }
+    const onSubmit = async (users) => {
+        const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/auth/forgotPassword`,users)
+        console.log(data);
+        navigate('/login');
     }
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema: LoginSchema
+        validationSchema: ForgetSchema
 
     })
-
     const inputs = [
         {
             type: 'email',
@@ -59,9 +37,15 @@ function Login() {
             name: 'password',
             id: 'password',
             value: formik.values.password
+        },
+        {
+            type: 'text',
+            title: 'code',
+            name: 'code',
+            id: 'code',
+            value: formik.values.code
         }
     ]
-
     const renderInputs = inputs.map((input, index) =>
         <Input
             value={input.value}
@@ -88,13 +72,12 @@ function Login() {
                         </div>
                     </div>
                     <div className='col-md-6 create p-5'>
-                        <h2 className='pb-3'>Login</h2>
+                        <h2 className='pb-3'>Change password</h2>
                         <form onSubmit={formik.handleSubmit}>
                             {renderInputs}
                             <div className='signup-button w-100 h-100 d-flex align-content-center justify-content-center'>
-                                <button className='signup' disabled={!formik.isValid} type='submit'>Login</button>
+                                <button className='signup' disabled={!formik.isValid} type='submit'>Change password</button>
                             </div>
-                            <Link to={'/auth/sendcode'}>Forgit password</Link>
                         </form>
                     </div>
                 </div>
@@ -103,4 +86,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Forget

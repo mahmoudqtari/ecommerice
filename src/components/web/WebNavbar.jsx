@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import '../web/web.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/User';
+import { CartContext } from '../context/Cart';
 
-function webNavbar({user,setUser}) {
+function webNavbar() {
+    let { userToken,setUserToken,userData,setUserData } = useContext(UserContext);
+    let {cartCount} = useContext(CartContext);
     const navigate = useNavigate();
     const logout = () => {
         localStorage.removeItem('userToken');
-        setUser(null);
+        setUserToken(null);
+        setUserData(null);
         navigate('/home');
     }
     return (
@@ -20,7 +25,7 @@ function webNavbar({user,setUser}) {
                     <ul className="navbar-nav m-auto mb-2 mb-lg-0">
 
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Home</a>
+                            <Link className="nav-link" to="/">Home</Link>
                         </li>
 
 
@@ -33,29 +38,34 @@ function webNavbar({user,setUser}) {
                             <a className="nav-link" href="#">Products</a>
                         </li>
 
-                        {user && <li className="nav-item">
-                            <a className="nav-link" href="#">chart</a>
-                        </li>}
+                        {userToken ? <li className="nav-item">
+                            <Link className="nav-link" to={'/cart'}>Cart</Link>
+                        </li> : null}
+                        
+                        {userToken ? <li className="nav-item">
+                            <span>{cartCount}</span>
+                        </li> : null}
+
 
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                {userData?userData.userName:'Account'}
                             </a>
-                            <ul className="dropdown-menu ">
-                                {!user? 
-                                <>
-                                    <li><Link className="dropdown-item" to={'/register'}>register</Link></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><Link className="dropdown-item" to={'/login'}>login</Link></li>
-                                </>: 
-                                <>
-                                    <li><Link className="dropdown-item" to={'/register'}>profile</Link></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><Link className="dropdown-item" onClick={logout}>logout</Link></li>
-                                </>}
-                                
+                            <ul className="dropdown-menu">
+                                {userToken == null ?
+                                    <>
+                                        <li><Link className="dropdown-item" to={'/register'}>register</Link></li>
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><Link className="dropdown-item" to={'/login'}>login</Link></li>
+                                    </> :
+                                    <>
+                                        <li><Link className="dropdown-item" to={'/profile'}>profile</Link></li>
+                                        <li><hr className="dropdown-divider" /></li>
+                                        <li><Link className="dropdown-item" onClick={logout}>logout</Link></li>
+                                    </>
+                                }
                             </ul>
                         </li>
                     </ul>

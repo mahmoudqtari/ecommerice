@@ -1,8 +1,11 @@
 import React from 'react'
+import Categories from './Categories'
 
 function Home() {
   return (
-    <div>Home</div>
+    <>
+      <Categories />
+    </>
   )
 }
 
