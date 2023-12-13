@@ -7,6 +7,7 @@ export const CartContext = createContext(null);
 export function CartContextProvider({children}){
 
     let [cartCount,setCartCount] = useState(0);
+    
     const addToCartContext = async (productId) => {
         try{
             const token = localStorage.getItem("userToken");
@@ -89,6 +90,7 @@ export function CartContextProvider({children}){
             const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/decraseQuantity`,
             {productId},
             {headers: {Authorization:`Tariq__${token}`}})
+            
             return data;
         }
         catch(error){

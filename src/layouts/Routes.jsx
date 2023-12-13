@@ -18,6 +18,7 @@ import Profile from '../components/web/profile/Profile';
 import SendCode from '../components/sendCode/SendCode.jsx'
 import Forget from '../components/forget/Forget.jsx';
 import Chekout from '../components/chekout/Chekout.jsx';
+import Order from '../components/order/Order.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/auth/forgotPassword",
         element: <Forget />
+      },
+      {
+        path: "/order",
+        element: <Order />
       },
       {
         path: "/Chekout",

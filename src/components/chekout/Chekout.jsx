@@ -3,9 +3,11 @@ import Input from '../../shared/Input'
 import { useFormik } from 'formik'
 import { CheckoutSchema } from '../register/validateSchema.js'
 import { ChekContext } from './context/CheckContextProvider.jsx'
+import { useNavigate } from 'react-router-dom'
 
 function Chekout() {
     const {addToChekout} = useContext(ChekContext);
+    let navigate = useNavigate();
     const initialValues = {
         couponName: '',
         address: '',
@@ -14,6 +16,7 @@ function Chekout() {
     const onSubmit = async (coupon) => {
         const res = await addToChekout(coupon);
         return res;
+        
     }
     const formik = useFormik({
         initialValues,
@@ -77,7 +80,7 @@ function Chekout() {
                         <form onSubmit={formik.handleSubmit}>
                             {renderInputs}
                             <div className='signup-button w-100 h-100 d-flex align-content-center justify-content-center'>
-                                <button className='signup' disabled={!formik.isValid} type='submit'>Create</button>
+                                <button className='signup' onClick={() => {navigate('/profile')}} disabled={!formik.isValid} type='submit'>Create</button>
                             </div>
 
                         </form>

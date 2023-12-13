@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../context/User';
+import { Link } from 'react-router-dom';
 
 function Profile() {
     let { userData } = useContext(UserContext);
@@ -15,6 +16,8 @@ function Profile() {
                     <h3>{userData.email}</h3>
                 </div> :"no data"
             }
+
+            <Link to={'/order'}>get Order</Link>
         </>
     )
 }
