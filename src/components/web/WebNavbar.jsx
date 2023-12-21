@@ -35,18 +35,12 @@ function webNavbar() {
 
 
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Products</a>
+                            <Link className="nav-link" to="/productList">Products</Link>
                         </li>
 
                         {userToken ? <li className="nav-item">
-                            <Link className="nav-link" to={'/cart'}>Cart</Link>
+                            <Link className="nav-link" to={'/cart'}>Cart <span class="badge badge-light bg-secondary">{cartCount}</span> </Link>
                         </li> : null}
-                        
-                        {userToken ? <li className="nav-item">
-                            <span>{cartCount}</span>
-                        </li> : null}
-
-
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item dropdown">

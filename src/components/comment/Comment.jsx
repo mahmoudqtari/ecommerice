@@ -1,51 +1,43 @@
 import React, { useContext } from 'react'
-import Input from '../../shared/Input'
-import { useFormik } from 'formik'
-import { CheckoutSchema } from '../register/validateSchema.js'
-import { ChekContext } from './context/CheckContextProvider.jsx'
-import { useNavigate } from 'react-router-dom'
+import {useParams } from 'react-router-dom';
+import { CommentSchema } from '../register/validateSchema';
+import { useFormik } from 'formik';
+import Input from '../../shared/Input';
+import { ProductReviewsContext } from '../context/ReviewsContext';
 
-function Chekout() {
-    const {addToChekout} = useContext(ChekContext);
-    let navigate = useNavigate();
+function Comment() {
+    let {AddCommint} = useContext(ProductReviewsContext);
+    let { productId } = useParams();
     const initialValues = {
-        couponName: '',
-        address: '',
-        phone: null
+        comment: '',
+        rating: null,
     }
-    const onSubmit = async (coupon) => {
-        const res = await addToChekout(coupon);
+    const onSubmit = async comment => {
+        const res = await AddCommint(comment,productId);
         return res;
-        
     }
     const formik = useFormik({
         initialValues,
         onSubmit,
-        validationSchema: CheckoutSchema
+        validationSchema: CommentSchema
+
     })
+
     const inputs = [
         {
             type: 'text',
-            title: 'couponName',
-            name: 'couponName',
-            id: 'couponName',
-            value: formik.values.couponName,
-        },
-        {
-            type: 'text',
-            title: 'address',
-            name: 'address',
-            id: 'address',
-            value: formik.values.address,
-
+            title: 'comment',
+            name: 'comment',
+            id: 'comment',
+            value: formik.values.comment
         },
         {
 
-            type: 'phone',
-            title: 'phone',
-            name: 'phone',
-            id: 'phone',
-            value: formik.values.phone
+            type: 'number',
+            title: 'rating',
+            name: 'rating',
+            id: 'rating',
+            value: formik.values.rating
         }
     ]
 
@@ -64,30 +56,28 @@ function Chekout() {
         />
 
     )
-
-    return (
-        <>
+  return (
+    <>
             <div className='container py-5'>
                 <div className='row'>
                     <div className='col-md-6'>
                         <div className='welcome-img h-100 d-flex align-items-center justify-content-center'>
-                            <img className='w-100 h-100' src="photo/welcome.jpeg" alt="welcome" />
+                        <img className='w-100 h-100' src='../../../../public/photo/welcome.jpeg' alt="welcome" />
                         </div>
                     </div>
                     <div className='col-md-6 create p-5'>
-                        <h2 className='pb-3'>Coupon</h2>
+                        <h2 className='pb-3'>Comment</h2>
                         <form onSubmit={formik.handleSubmit}>
                             {renderInputs}
                             <div className='signup-button w-100 h-100 d-flex align-content-center justify-content-center'>
-                                <button className='signup' onClick={() => {navigate('/profile')}} disabled={!formik.isValid} type='submit'>Create</button>
+                                <button className='signup' disabled={!formik.isValid} type='submit'>Add Comment</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </>
-    )
+  )
 }
 
-export default Chekout
+export default Comment

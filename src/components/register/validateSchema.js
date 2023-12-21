@@ -24,3 +24,8 @@ export const CheckoutSchema = yup.object({
     address: yup.string().required("address is requared").min(5,"address must at least 5 char").max(30,"address must max 30"),
     phone: yup.number().min(5,"phone must min 5 digit")
 })
+
+export const CommentSchema = yup.object({
+    comment: yup.string().required("comment name is requared").max(200,"comment must max 200").min(3,"comment must min 3"),
+    rating: yup.number().positive().min(0,"rating must min 0").max(5,"rating must max 5")
+})

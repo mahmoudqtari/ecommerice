@@ -19,7 +19,11 @@ import SendCode from '../components/sendCode/SendCode.jsx'
 import Forget from '../components/forget/Forget.jsx';
 import Chekout from '../components/chekout/Chekout.jsx';
 import Order from '../components/order/Order.jsx';
-
+import UserInfo from '../components/web/profile/UserInfo.jsx';
+import UserContact from '../components/web/profile/UserContact.jsx';
+import ProductsList from '../components/web/productsList/ProductsList.jsx';
+import Reviews from '../components/web/reviews/Reviews.jsx'
+import Comment from '../components/comment/Comment.jsx';
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -46,8 +50,33 @@ export const router = createBrowserRouter([
         element: <SendCode />
       },
       {
+        path: "/reviews/:productId",
+        element: <Reviews />
+      },
+      {
+        path: "/comment/:productId",
+        element: <Comment />
+      },
+      {
+        path: "/productList",
+        element: <ProductsList />
+      },
+      {
         path: "profile",
-        element: <Profile />
+        element: 
+        <ProtectedRoute>
+            <Profile />
+        </ProtectedRoute>,
+        children:[
+          {
+            index: true,
+            element: <UserInfo />
+          },
+          {
+            path: "contact",
+            element: <UserContact />
+          }
+        ]
       },
       {
         path: "login",

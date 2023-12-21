@@ -26,6 +26,7 @@ export function CartContextProvider({children}){
                     theme: "dark",
                     })
             }
+            setCartCount(++cartCount);
             return data;
         }
         catch(error){

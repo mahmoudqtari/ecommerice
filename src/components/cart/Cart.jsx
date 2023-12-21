@@ -81,6 +81,7 @@ function Cart() {
                                                 </svg>
                                                 remove
                                             </a>
+                                            <Link to={`/comment/${product.productId}`} > Add Commint </Link>
                                         </div>
                                     </div>
                                     <div className="quantity">
